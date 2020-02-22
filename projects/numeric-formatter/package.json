@@ -1,0 +1,31 @@
+{
+  "name": "numeric-formatter",
+  "version": "1.0.2",
+  "author": "Musthaq Aadhil",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ErrorCode101/numeric-formatter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ErrorCode101/numeric-formatter/issues"
+  },
+  "homepage": "https://github.com/ErrorCode101/numeric-formatter",
+  "keywords": [
+    "angular",
+    "numeric",
+    "format",
+    "lengtth",
+    "max-length",
+    "max",
+    "size",
+    "type",
+    "number",
+    "formatter",
+    "directive"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "@angular/common": "^8.2.14",
+    "@angular/core": "^8.2.14"
+  }
+}
