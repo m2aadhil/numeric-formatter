@@ -1,24 +1,60 @@
-# NumericFormatter
+Set character lengths for html numeric inputs. Unlike using regex pattern with html input type text this will validate user inputs on type..
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.14.
+----
+### Features
 
-## Code scaffolding
+- Set character lengths for html numeric inputs;
+- Set maximum and minimum decimal points counts;
+- Mask numbers with thousands seperators without changing the original value;
+- Validations will be happening on user input;
+- More features to add.;
 
-Run `ng generate component component-name --project numeric-formatter` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project numeric-formatter`.
-> Note: Don't forget to add `--project numeric-formatter` or else it will be added to the default project in your `angular.json` file. 
 
-## Build
+`$ npm install numeric-formatter`
 
-Run `ng build numeric-formatter` to build the project. The build artifacts will be stored in the `dist/` directory.
+*** Required : Angular two way binding for the input***
 
-## Publishing
+####AppModule
 
-After building your library with `ng build numeric-formatter`, go to the dist folder `cd dist/numeric-formatter` and run `npm publish`.
+```javascript
+import { NgModule } from "@angular/core";
+import { FormsModule } from "@angular/forms";
+import { NumericFormatterModule } from 'numeric-formatter';
+ 
+ @NgModule({
+  imports: [ FormsModule, NumericFormatterModule]
+})
+```
+####HTML
 
-## Running unit tests
+```html
+<input numericformatter [(ngModel)]="value" [maxNumLength]="10" 
+			[minDecimals]="3" [maxDecimals]="4" [displaySeperator]="true"/>
+```
+                    
+####Properties
+                    
 
-Run `ng test numeric-formatter` to execute the unit tests via [Karma](https://karma-runner.github.io).
+| Name  | Type | Default | Description |
+| ------------- | ------------- |  ------------- |  ------------- |
+| maxNumLength  | number  | 100  | Fix the character length that can be type (Including decimal seperator, excluding thousand seperator)
+| minDecimals  | number  | 0 | Minimum decimal points for the input |
+| maxDecimals  | number  | 100 | Maximum decimal points that can be typed |
+| displaySeperator  | boolean  | false | Show thousand seperators for the input value (will not change the original value) |
 
-## Further help
+-------------
+Changelog
+-------------
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+**1.0.3**
+- Changed decimal points property name to max decimals;
+- Fixed an issue with displaying bound values;
+
+**1.0.2**
+- Fixed an issue with exceeding character limit when decimal points property not defined;
+
+**1.0.1**
+- Added a input property to show/ hide thousand seperator;
+
+**1.0.0**
+- Initial release;
