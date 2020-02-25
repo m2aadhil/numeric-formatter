@@ -52,6 +52,10 @@ Properties
 Changelog
 -------------
 
+**1.0.4**
+- Fixed an issue with exceeding character limit on long key press;
+- Fixed an issue with enabled space key;
+
 **1.0.3**
 - Changed decimal points property name to max decimals;
 - Fixed an issue with displaying bound values;

@@ -1,4 +1,4 @@
-import { Directive, OnInit, Input, Output, EventEmitter, ElementRef, HostListener, AfterViewChecked } from '@angular/core';
+import { Directive, OnInit, Input, Output, EventEmitter, ElementRef, HostListener, AfterViewChecked, OnChanges } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 @Directive({
@@ -37,6 +37,10 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
   }
 
   ngOnInit(): void {
+    this.init();
+  }
+
+  private init(): void {
     if (this.minDecimals > this.maxDecimals) {
       this.minDecimals = this.maxDecimals;
     }
@@ -102,7 +106,7 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
 
   @HostListener("keydown", ["$event"])
   onKeyDown(e: KeyboardEvent) {
-    if (!isNaN(Number(e.key))) {
+    if (!isNaN(Number(e.key)) && e.key != " ") {
       if (this.maxDecimals > 0) {
         if (this.el.value.length <= this.maxNumLength) {
           this.preventType(e);
@@ -153,21 +157,24 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
         }
       }
     } else {
-      if (this.el.value.split(this.decimalPointer)[0].length >= this.integerCount && this.minDecimals < 1) {
-        e.preventDefault();
+      if (this.el.value.split(this.decimalPointer)[0].length >= this.integerCount) {
+        if (this.minDecimals < 1 || this.el.value.length >= this.maxNumLength) {
+          e.preventDefault();
+        }
+        else if (this.el.value.length >= this.maxNumLength - 1) {
+          e.preventDefault();
+        }
       }
     }
   }
 
   @HostListener("keyup", ["$event"])
   onKeyUp(e: KeyboardEvent) {
-    let value = this.el.value;
-    if (value.length > this.integerCount && this.maxDecimals > 0 &&
-      this.getPointerIndex(value, this.decimalPointer) < 0) {
-      value = this.insertString(this.integerCount, value, this.decimalPointer);
-      this.ngModelChange.emit(value);
+    if (this.el.value.length > this.integerCount && this.minDecimals > 0 &&
+      this.getPointerIndex(this.el.value, this.decimalPointer) < 0) {
+      this.el.value = this.insertString(this.integerCount, this.el.value, this.decimalPointer);
+      this.ngModelChange.emit(this.el.value);
     }
-    this.ngModelChange.emit(value);
   }
 
   @HostListener("paste", ["$event"])
