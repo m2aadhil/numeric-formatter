@@ -41,10 +41,14 @@ import { NumericFormatterModule } from 'numeric-formatter';
 | minDecimals  | number  | 0 | Minimum decimal points for the input |
 | maxDecimals  | number  | 100 | Maximum decimal points that can be typed |
 | displaySeperator  | boolean  | false | Show thousand seperators for the input value (will not change the original value) |
+| maxValue  | number  | null | Defines the maximum numeric value that can be typed |
 
 -------------
 Changelog
 -------------
+
+**1.0.5**
+- Adding maxValue property for maximum numeric value validation;
 
 **1.0.4**
 - Fixed an issue with exceeding character limit on long key press;

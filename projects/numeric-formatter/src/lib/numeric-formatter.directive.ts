@@ -6,6 +6,7 @@ import { DecimalPipe } from '@angular/common';
 })
 export class NumericFormatterDirective implements OnInit, AfterViewChecked {
 
+  @Input() maxValue: number = null;
   @Input() maxNumLength: number = 100;
   @Input() maxDecimals: number = 100;
   @Input() minDecimals: number = 0;
@@ -118,6 +119,9 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
           e.preventDefault();
         }
       }
+      if (this.maxValue != null) {
+        this.maxValueValidation(e);
+      }
     } else if (this.navigationKeys.indexOf(e.key) > -1 || // Allow: navigation keys: backspace, delete, arrows etc.
       (e.key === "a" && e.ctrlKey === true) || // Allow: Ctrl+A
       (e.key === "c" && e.ctrlKey === true) || // Allow: Ctrl+C
@@ -165,6 +169,13 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
           e.preventDefault();
         }
       }
+    }
+  }
+
+  private maxValueValidation(e: KeyboardEvent): void {
+    let value: number = Number(this.spliceSlice(this.el.value, this.el.selectionStart, this.el.selectionEnd - this.el.selectionStart, e.key));
+    if (value > this.maxValue) {
+      e.preventDefault();
     }
   }
 
