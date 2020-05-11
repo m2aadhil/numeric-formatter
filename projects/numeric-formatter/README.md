@@ -47,6 +47,9 @@ import { NumericFormatterModule } from 'numeric-formatter';
 Changelog
 -------------
 
+**1.0.6**
+- Fixed an issue with not getting selected on tab focus;
+
 **1.0.5**
 - Adding maxValue property for maximum numeric value validation;
 
