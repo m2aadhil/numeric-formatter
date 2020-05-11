@@ -53,6 +53,9 @@ Properties
 Changelog
 -------------
 
+**1.0.7**
+- Fixed an issue with module not found;
+
 **1.0.6**
 - Fixed an issue with not getting selected on tab focus;
 
