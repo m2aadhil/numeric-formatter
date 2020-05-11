@@ -93,8 +93,12 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
 
   @HostListener("focus")
   onFocus() {
+    let selectionStart = this.el.selectionStart;
+    let selectionEnd = this.el.selectionEnd;
     this.onType = true;
     this.el.value = this.el.value.replace(new RegExp(",", "g"), '');
+    this.el.selectionStart = selectionStart;
+    this.el.selectionEnd = selectionEnd;
   }
 
   private insertString(index: number, value: string, char: string): string {
