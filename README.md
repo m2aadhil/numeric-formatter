@@ -47,6 +47,8 @@ import { NumericFormatterModule } from 'numeric-formatter';
 -------------
 Changelog
 -------------
+**1.1.1**
+- Fixed an issue with negative numbers are allowed in allowNegative false state;
 
 **1.1.0**
 - Added support for negative numbers;

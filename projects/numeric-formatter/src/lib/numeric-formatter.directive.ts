@@ -164,7 +164,7 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
         return true;
       }
     }
-    return true;
+    return false;
   }
 
   private preventType(e: KeyboardEvent): void {
