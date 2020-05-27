@@ -1,10 +1,7 @@
-# numeric-formatter
-
 Set character lengths for html numeric inputs. Unlike using regex pattern with html input type text this will validate user inputs on type..
 
 ----
-Features
--------------
+### Features
 
 - Set character lengths for html numeric inputs;
 - Set maximum and minimum decimal points counts;
@@ -17,8 +14,7 @@ Features
 
 *** Required : Angular two way binding for the input***
 
-AppModule
--------------  
+####AppModule
 
 ```javascript
 import { NgModule } from "@angular/core";
@@ -29,17 +25,15 @@ import { NumericFormatterModule } from 'numeric-formatter';
   imports: [ FormsModule, NumericFormatterModule]
 })
 ```
-
-HTML
--------------    
+####HTML
 
 ```html
 <input numericformatter [(ngModel)]="value" [maxNumLength]="10" 
 			[minDecimals]="3" [maxDecimals]="4" [displaySeperator]="true"/>
 ```
                     
-Properties
--------------                 
+####Properties
+                    
 
 | Name  | Type | Default | Description |
 | ------------- | ------------- |  ------------- |  ------------- |
@@ -48,10 +42,14 @@ Properties
 | maxDecimals  | number  | 100 | Maximum decimal points that can be typed |
 | displaySeperator  | boolean  | false | Show thousand seperators for the input value (will not change the original value) |
 | maxValue  | number  | null | Defines the maximum numeric value that can be typed |
+| allowNegative  | boolean  | false | Negative numbers will be allowed to type |
 
 -------------
 Changelog
 -------------
+
+**1.1.0**
+- Added support for negative numbers;
 
 **1.0.7**
 - Fixed an issue with module not found;

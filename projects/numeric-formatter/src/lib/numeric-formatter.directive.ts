@@ -11,6 +11,7 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
   @Input() maxDecimals: number = 100;
   @Input() minDecimals: number = 0;
   @Input() displaySeperator: boolean = false;
+  @Input() allowNegative: boolean = false;
   @Input() ngModel: any;
   @Output() ngModelChange = new EventEmitter();
   private decimalPointer: string = ".";
@@ -134,7 +135,8 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
       (e.key === "a" && e.metaKey === true) || // Allow: Cmd+A (Mac)
       (e.key === "c" && e.metaKey === true) || // Allow: Cmd+C (Mac)
       (e.key === "v" && e.metaKey === true) || // Allow: Cmd+V (Mac)
-      (e.key === "x" && e.metaKey === true)  // Allow: Cmd+X (Mac)
+      (e.key === "x" && e.metaKey === true) || // Allow: Cmd+X (Mac)
+      this.validNegative(e.key)
     ) {
       return;
     } else if (e.key === this.decimalPointer && this.maxDecimals > 0) {
@@ -145,11 +147,24 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
         e.preventDefault();
       } else if (this.el.value.length >= this.maxNumLength) {
         e.preventDefault();
-      }
+      } 
     }
     else {
       e.preventDefault();
     }
+  }
+
+  private validNegative(key): boolean{
+    if(this.allowNegative && key == '-'){
+      if(this.getPointerIndex(this.el.value, '-') >= 0){
+        return false;
+      }else if(this.el.selectionStart > 0){
+        return false;
+      }else{
+        return true;
+      }
+    }
+    return true;
   }
 
   private preventType(e: KeyboardEvent): void {
@@ -200,11 +215,6 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
     value = value.replace(",", "");
     if (this.checkValidNumber(value)) { //!this.decimal
       this.ngModelChange.emit(value);
-      // document.execCommand(
-      //     "insertText",
-      //     false,
-      //     pastedInput.replace(",", "")
-      // );
     }
   }
 

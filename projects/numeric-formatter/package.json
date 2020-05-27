@@ -1,15 +1,15 @@
 {
   "name": "numeric-formatter",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "author": "Musthaq Aadhil",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ErrorCode101/numeric-formatter.git"
+    "url": "git+https://github.com/m2aadhil/numeric-formatter.git"
   },
   "bugs": {
-    "url": "https://github.com/ErrorCode101/numeric-formatter/issues"
+    "url": "https://github.com/m2aadhil/numeric-formatter/issues"
   },
-  "homepage": "https://github.com/ErrorCode101/numeric-formatter",
+  "homepage": "https://github.com/m2aadhil/numeric-formatter",
   "keywords": [
     "angular",
     "numeric",

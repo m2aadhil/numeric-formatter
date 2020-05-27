@@ -42,10 +42,14 @@ import { NumericFormatterModule } from 'numeric-formatter';
 | maxDecimals  | number  | 100 | Maximum decimal points that can be typed |
 | displaySeperator  | boolean  | false | Show thousand seperators for the input value (will not change the original value) |
 | maxValue  | number  | null | Defines the maximum numeric value that can be typed |
+| allowNegative  | boolean  | false | Negative numbers will be allowed to type |
 
 -------------
 Changelog
 -------------
+
+**1.1.0**
+- Added support for negative numbers;
 
 **1.0.7**
 - Fixed an issue with module not found;
