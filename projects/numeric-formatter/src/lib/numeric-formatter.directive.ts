@@ -7,6 +7,7 @@ import { DecimalPipe } from '@angular/common';
 export class NumericFormatterDirective implements OnInit, AfterViewChecked {
 
   @Input() maxValue: number = null;
+  @Input() minValue: number = null;
   @Input() maxNumLength: number = 100;
   @Input() maxDecimals: number = 100;
   @Input() minDecimals: number = 0;
@@ -87,6 +88,12 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
         } else if (index < 0) {
           this.ngModelChange.emit(Number(this.ngModel).toFixed(this.minDecimals));
         }
+      }
+    }
+    if(this.minValue && this.ngModel){
+      if(this.ngModel < this.minValue)
+      {
+        this.ngModelChange.emit(Number(this.minValue).toFixed(this.minDecimals));
       }
     }
     this.onType = false;

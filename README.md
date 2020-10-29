@@ -42,11 +42,15 @@ import { NumericFormatterModule } from 'numeric-formatter';
 | maxDecimals  | number  | 100 | Maximum decimal points that can be typed |
 | displaySeperator  | boolean  | false | Show thousand seperators for the input value (will not change the original value) |
 | maxValue  | number  | null | Defines the maximum numeric value that can be typed |
+| minValue  | number  | null | Defines the minimum numeric value that can be typed (will be default to minimum value on validation) |
 | allowNegative  | boolean  | false | Negative numbers will be allowed to type |
 
 -------------
 Changelog
 -------------
+**1.2.0**
+- Adding minValue property for minimum numeric value validation;
+
 **1.1.1**
 - Fixed an issue with negative numbers are allowed in allowNegative false state;
 
