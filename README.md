@@ -48,6 +48,10 @@ import { NumericFormatterModule } from 'numeric-formatter';
 -------------
 Changelog
 -------------
+
+**1.2.1**
+- Fixed an issue with not pasting numbers with new line at the end;
+
 **1.2.0**
 - Adding minValue property for minimum numeric value validation;
 

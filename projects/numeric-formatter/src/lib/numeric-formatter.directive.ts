@@ -217,10 +217,12 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
   @HostListener("paste", ["$event"])
   onPaste(event: ClipboardEvent) {
     event.preventDefault();
-    const pastedInput: string = event.clipboardData.getData("text/plain");
+    let pastedInput: string = event.clipboardData.getData("text/plain");
+    pastedInput = pastedInput.trimLeft();
+    pastedInput = pastedInput.trimRight();
     let value = this.spliceSlice(this.el.value, this.el.selectionStart, this.el.selectionEnd - this.el.selectionStart, pastedInput);
     value = value.replace(",", "");
-    if (this.checkValidNumber(value)) { //!this.decimal
+    if (!isNaN(Number(value)) && this.checkValidNumber(value)) { //!this.decimal
       this.ngModelChange.emit(value);
     }
   }
@@ -228,12 +230,14 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
   @HostListener("drop", ["$event"])
   onDrop(event: DragEvent) {
     event.preventDefault();
-    const textData = event.dataTransfer.getData("text");
+    let textData = event.dataTransfer.getData("text");
+    textData = textData.trimLeft();
+    textData = textData.trimRight();
     this.el.focus();
     let value = this.spliceSlice(this.el.value, this.el.selectionStart, this.el.selectionEnd - this.el.selectionStart, textData);
     value = value.replace(",", "");
 
-    if (this.checkValidNumber(value)) { //!this.decimal
+    if (!isNaN(Number(value)) && this.checkValidNumber(value)) { //!this.decimal
       this.ngModelChange.emit(value);
       // document.execCommand(
       //     "insertText",
@@ -249,10 +253,13 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
       return false;
     } else if (pIndex > 0 && value.split(this.decimalPointer)[0].length > this.integerCount) {
       return false;
-
     } else if (pIndex > 0 && value.split(this.decimalPointer)[1].length > this.maxDecimals) {
       return false;
     } else if (pIndex < 0 && value.length > this.integerCount) {
+      return false;
+    } else if(this.maxValue != null && Number(value)>this.maxValue){
+      return false;
+    } else if(this.minValue != null && Number(value)<this.minValue){
       return false;
     }
     return true;
