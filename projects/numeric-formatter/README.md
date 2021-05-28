@@ -49,6 +49,12 @@ import { NumericFormatterModule } from 'numeric-formatter';
 Changelog
 -------------
 
+**1.2.3**
+- Fixed an issue with unable to overwrite text by selecting all when max length is reached;
+
+**1.2.2**
+- Fixed an issue with decimal pipe provider for angular version 7;
+
 **1.2.1**
 - Fixed an issue with not pasting numbers with new line at the end;
 

@@ -2,6 +2,7 @@ import { Directive, OnInit, Input, Output, EventEmitter, ElementRef, HostListene
 import { DecimalPipe } from '@angular/common';
 
 @Directive({
+  providers: [DecimalPipe],
   selector: '[numericformatter]'
 })
 export class NumericFormatterDirective implements OnInit, AfterViewChecked {
@@ -90,9 +91,8 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
         }
       }
     }
-    if(this.minValue && this.ngModel){
-      if(this.ngModel < this.minValue)
-      {
+    if (this.minValue && this.ngModel) {
+      if (this.ngModel < this.minValue) {
         this.ngModelChange.emit(Number(this.minValue).toFixed(this.minDecimals));
       }
     }
@@ -117,9 +117,19 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
     return value.indexOf(pointer);
   }
 
+  private selectionUpdate(){
+    if (this.el.selectionStart > 0 || this.el.selectionEnd > 0) {
+      this.el.value = this.el.value.replace(this.el.value.slice(this.el.selectionStart, this.el.selectionEnd), '');
+      if (this.el.selectionEnd < this.el.selectionStart) {
+        this.el.selectionStart = this.el.selectionEnd;
+      }
+    }
+  }
+
   @HostListener("keydown", ["$event"])
   onKeyDown(e: KeyboardEvent) {
     if (!isNaN(Number(e.key)) && e.key != " ") {
+      this.selectionUpdate();
       if (this.maxDecimals > 0) {
         if (this.el.value.length <= this.maxNumLength) {
           this.preventType(e);
@@ -147,6 +157,7 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
     ) {
       return;
     } else if (e.key === this.decimalPointer && this.maxDecimals > 0) {
+      this.selectionUpdate();
       let pIndex: number = this.getPointerIndex(this.el.value, this.decimalPointer);
       if (pIndex > 0 || this.el.value.length >= this.maxNumLength || this.el.selectionStart == 0 || this.el.selectionStart >= this.maxNumLength - 1) {
         e.preventDefault();
@@ -154,20 +165,20 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
         e.preventDefault();
       } else if (this.el.value.length >= this.maxNumLength) {
         e.preventDefault();
-      } 
+      }
     }
     else {
       e.preventDefault();
     }
   }
 
-  private validNegative(key): boolean{
-    if(this.allowNegative && key == '-'){
-      if(this.getPointerIndex(this.el.value, '-') >= 0){
+  private validNegative(key): boolean {
+    if (this.allowNegative && key == '-') {
+      if (this.getPointerIndex(this.el.value, '-') >= 0) {
         return false;
-      }else if(this.el.selectionStart > 0){
+      } else if (this.el.selectionStart > 0) {
         return false;
-      }else{
+      } else {
         return true;
       }
     }
@@ -239,11 +250,6 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
 
     if (!isNaN(Number(value)) && this.checkValidNumber(value)) { //!this.decimal
       this.ngModelChange.emit(value);
-      // document.execCommand(
-      //     "insertText",
-      //     false,
-      //     textData.replace(",", "")
-      // );
     }
   }
 
@@ -257,9 +263,9 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
       return false;
     } else if (pIndex < 0 && value.length > this.integerCount) {
       return false;
-    } else if(this.maxValue != null && Number(value)>this.maxValue){
+    } else if (this.maxValue != null && Number(value) > this.maxValue) {
       return false;
-    } else if(this.minValue != null && Number(value)<this.minValue){
+    } else if (this.minValue != null && Number(value) < this.minValue) {
       return false;
     }
     return true;
