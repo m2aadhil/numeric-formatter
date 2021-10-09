@@ -49,6 +49,9 @@ import { NumericFormatterModule } from 'numeric-formatter';
 Changelog
 -------------
 
+**1.2.4**
+- Fixed an issue with decimal pipe is not being applied when value is zero;
+
 **1.2.3**
 - Fixed an issue with unable to overwrite text by selecting all when max length is reached;
 

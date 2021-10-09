@@ -59,7 +59,7 @@ export class NumericFormatterDirective implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    if (!this.onType && this.ngModel) {
+    if (!this.onType && this.ngModel != undefined && this.ngModel != null) {
       if (this.displaySeperator) {
         let pipe: string = "1." + this.minDecimals + "-" + this.maxDecimals;
         this.el.value = this.decimalPipe.transform(this.ngModel, pipe);
